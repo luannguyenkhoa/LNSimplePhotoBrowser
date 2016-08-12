@@ -11,4 +11,4 @@ Might be some videos url are dead right now. Using your videos url instead.
 
 i have applied POP-OOP-Functional programming for this project. Maybe my code is not good enough as its concepts, coach me if possible.
 
-**Sharing Ones Knowledge with others is the best way to retain knowledge.**
+**Sharing your knowledge with others is the best way to retain knowledge.**
