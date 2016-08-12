@@ -1,0 +1,415 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8B1D832E35D684A31204559B /* Pods_LNSimplePhotoBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6F7561EBE595933B915D2E1 /* Pods_LNSimplePhotoBrowser.framework */; };
+		B307BB021D44B3DF00B82DD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B307BB011D44B3DF00B82DD3 /* AppDelegate.swift */; };
+		B307BB041D44B3DF00B82DD3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B307BB031D44B3DF00B82DD3 /* ViewController.swift */; };
+		B307BB071D44B3DF00B82DD3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B307BB051D44B3DF00B82DD3 /* Main.storyboard */; };
+		B307BB091D44B3DF00B82DD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B307BB081D44B3DF00B82DD3 /* Assets.xcassets */; };
+		B307BB0C1D44B3DF00B82DD3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B307BB0A1D44B3DF00B82DD3 /* LaunchScreen.storyboard */; };
+		B307BB151D44B41800B82DD3 /* LNPhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B307BB141D44B41800B82DD3 /* LNPhotoBrowser.swift */; };
+		B307BB181D44E2F100B82DD3 /* LNMediaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B307BB161D44E2F100B82DD3 /* LNMediaCollectionViewCell.swift */; };
+		B307BB191D44E2F100B82DD3 /* LNMediaCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B307BB171D44E2F100B82DD3 /* LNMediaCollectionViewCell.xib */; };
+		B30B7B2C1D5B8BA8003E44AB /* LNCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30B7B2B1D5B8BA8003E44AB /* LNCommon.swift */; };
+		B34998561D5DB6DE00FD7077 /* LNYoutubePlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34998541D5DB6DE00FD7077 /* LNYoutubePlayerViewController.swift */; };
+		B34998571D5DB6DE00FD7077 /* LNYoutubePlayerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B34998551D5DB6DE00FD7077 /* LNYoutubePlayerViewController.xib */; };
+		B349985B1D5DDC5E00FD7077 /* LNMediaFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B349985A1D5DDC5E00FD7077 /* LNMediaFile.swift */; };
+		B3E6CE6B1D45FDC50009B483 /* LNMediaProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E6CE6A1D45FDC50009B483 /* LNMediaProcessing.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		61996B2901890885705AFF0A /* Pods-LNSimplePhotoBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LNSimplePhotoBrowser.release.xcconfig"; path = "Pods/Target Support Files/Pods-LNSimplePhotoBrowser/Pods-LNSimplePhotoBrowser.release.xcconfig"; sourceTree = "<group>"; };
+		B307BAFE1D44B3DF00B82DD3 /* LNSimplePhotoBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LNSimplePhotoBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B307BB011D44B3DF00B82DD3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B307BB031D44B3DF00B82DD3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B307BB061D44B3DF00B82DD3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B307BB081D44B3DF00B82DD3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B307BB0B1D44B3DF00B82DD3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B307BB0D1D44B3DF00B82DD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B307BB141D44B41800B82DD3 /* LNPhotoBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LNPhotoBrowser.swift; sourceTree = "<group>"; };
+		B307BB161D44E2F100B82DD3 /* LNMediaCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LNMediaCollectionViewCell.swift; sourceTree = "<group>"; };
+		B307BB171D44E2F100B82DD3 /* LNMediaCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LNMediaCollectionViewCell.xib; sourceTree = "<group>"; };
+		B30B7B2B1D5B8BA8003E44AB /* LNCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LNCommon.swift; sourceTree = "<group>"; };
+		B34998541D5DB6DE00FD7077 /* LNYoutubePlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LNYoutubePlayerViewController.swift; sourceTree = "<group>"; };
+		B34998551D5DB6DE00FD7077 /* LNYoutubePlayerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LNYoutubePlayerViewController.xib; sourceTree = "<group>"; };
+		B349985A1D5DDC5E00FD7077 /* LNMediaFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LNMediaFile.swift; sourceTree = "<group>"; };
+		B3E6CE6A1D45FDC50009B483 /* LNMediaProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LNMediaProcessing.swift; sourceTree = "<group>"; };
+		B3F17C631D53530100A44CE3 /* LNSimplePhotoBrowser-Header-Bridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LNSimplePhotoBrowser-Header-Bridging.h"; sourceTree = "<group>"; };
+		C6F7561EBE595933B915D2E1 /* Pods_LNSimplePhotoBrowser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LNSimplePhotoBrowser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9CE8F8D48AD90E97A4B1AB3 /* Pods-LNSimplePhotoBrowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LNSimplePhotoBrowser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LNSimplePhotoBrowser/Pods-LNSimplePhotoBrowser.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B307BAFB1D44B3DF00B82DD3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B1D832E35D684A31204559B /* Pods_LNSimplePhotoBrowser.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		50ABD52D262568B3CCBBBF81 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E9CE8F8D48AD90E97A4B1AB3 /* Pods-LNSimplePhotoBrowser.debug.xcconfig */,
+				61996B2901890885705AFF0A /* Pods-LNSimplePhotoBrowser.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		AA8B2391A59A811573D11865 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C6F7561EBE595933B915D2E1 /* Pods_LNSimplePhotoBrowser.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B307BAF51D44B3DF00B82DD3 = {
+			isa = PBXGroup;
+			children = (
+				B307BB001D44B3DF00B82DD3 /* LNSimplePhotoBrowser */,
+				B307BAFF1D44B3DF00B82DD3 /* Products */,
+				50ABD52D262568B3CCBBBF81 /* Pods */,
+				AA8B2391A59A811573D11865 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		B307BAFF1D44B3DF00B82DD3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B307BAFE1D44B3DF00B82DD3 /* LNSimplePhotoBrowser.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B307BB001D44B3DF00B82DD3 /* LNSimplePhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				B307BB131D44B3EA00B82DD3 /* LNPhotoBrowser */,
+				B307BB011D44B3DF00B82DD3 /* AppDelegate.swift */,
+				B307BB031D44B3DF00B82DD3 /* ViewController.swift */,
+				B307BB051D44B3DF00B82DD3 /* Main.storyboard */,
+				B307BB081D44B3DF00B82DD3 /* Assets.xcassets */,
+				B307BB0A1D44B3DF00B82DD3 /* LaunchScreen.storyboard */,
+				B307BB0D1D44B3DF00B82DD3 /* Info.plist */,
+				B3F17C631D53530100A44CE3 /* LNSimplePhotoBrowser-Header-Bridging.h */,
+			);
+			path = LNSimplePhotoBrowser;
+			sourceTree = "<group>";
+		};
+		B307BB131D44B3EA00B82DD3 /* LNPhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				B307BB141D44B41800B82DD3 /* LNPhotoBrowser.swift */,
+				B307BB161D44E2F100B82DD3 /* LNMediaCollectionViewCell.swift */,
+				B307BB171D44E2F100B82DD3 /* LNMediaCollectionViewCell.xib */,
+				B3E6CE6A1D45FDC50009B483 /* LNMediaProcessing.swift */,
+				B30B7B2B1D5B8BA8003E44AB /* LNCommon.swift */,
+				B34998541D5DB6DE00FD7077 /* LNYoutubePlayerViewController.swift */,
+				B34998551D5DB6DE00FD7077 /* LNYoutubePlayerViewController.xib */,
+				B349985A1D5DDC5E00FD7077 /* LNMediaFile.swift */,
+			);
+			path = LNPhotoBrowser;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B307BAFD1D44B3DF00B82DD3 /* LNSimplePhotoBrowser */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B307BB101D44B3DF00B82DD3 /* Build configuration list for PBXNativeTarget "LNSimplePhotoBrowser" */;
+			buildPhases = (
+				98AA0978B0AAD6A95B29287A /* Check Pods Manifest.lock */,
+				B307BAFA1D44B3DF00B82DD3 /* Sources */,
+				B307BAFB1D44B3DF00B82DD3 /* Frameworks */,
+				B307BAFC1D44B3DF00B82DD3 /* Resources */,
+				EA82B6728FDCA0ACAA94A9CB /* Embed Pods Frameworks */,
+				5717C92FCA142AE0FDB3ECF7 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LNSimplePhotoBrowser;
+			productName = LNSimplePhotoBrowser;
+			productReference = B307BAFE1D44B3DF00B82DD3 /* LNSimplePhotoBrowser.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B307BAF61D44B3DF00B82DD3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Luan Nguyen";
+				TargetAttributes = {
+					B307BAFD1D44B3DF00B82DD3 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = B307BAF91D44B3DF00B82DD3 /* Build configuration list for PBXProject "LNSimplePhotoBrowser" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B307BAF51D44B3DF00B82DD3;
+			productRefGroup = B307BAFF1D44B3DF00B82DD3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B307BAFD1D44B3DF00B82DD3 /* LNSimplePhotoBrowser */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B307BAFC1D44B3DF00B82DD3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B307BB0C1D44B3DF00B82DD3 /* LaunchScreen.storyboard in Resources */,
+				B307BB091D44B3DF00B82DD3 /* Assets.xcassets in Resources */,
+				B307BB071D44B3DF00B82DD3 /* Main.storyboard in Resources */,
+				B307BB191D44E2F100B82DD3 /* LNMediaCollectionViewCell.xib in Resources */,
+				B34998571D5DB6DE00FD7077 /* LNYoutubePlayerViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5717C92FCA142AE0FDB3ECF7 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LNSimplePhotoBrowser/Pods-LNSimplePhotoBrowser-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		98AA0978B0AAD6A95B29287A /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EA82B6728FDCA0ACAA94A9CB /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LNSimplePhotoBrowser/Pods-LNSimplePhotoBrowser-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B307BAFA1D44B3DF00B82DD3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B307BB041D44B3DF00B82DD3 /* ViewController.swift in Sources */,
+				B307BB151D44B41800B82DD3 /* LNPhotoBrowser.swift in Sources */,
+				B307BB021D44B3DF00B82DD3 /* AppDelegate.swift in Sources */,
+				B34998561D5DB6DE00FD7077 /* LNYoutubePlayerViewController.swift in Sources */,
+				B3E6CE6B1D45FDC50009B483 /* LNMediaProcessing.swift in Sources */,
+				B30B7B2C1D5B8BA8003E44AB /* LNCommon.swift in Sources */,
+				B349985B1D5DDC5E00FD7077 /* LNMediaFile.swift in Sources */,
+				B307BB181D44E2F100B82DD3 /* LNMediaCollectionViewCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B307BB051D44B3DF00B82DD3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B307BB061D44B3DF00B82DD3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B307BB0A1D44B3DF00B82DD3 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B307BB0B1D44B3DF00B82DD3 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B307BB0E1D44B3DF00B82DD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B307BB0F1D44B3DF00B82DD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B307BB111D44B3DF00B82DD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E9CE8F8D48AD90E97A4B1AB3 /* Pods-LNSimplePhotoBrowser.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LNSimplePhotoBrowser/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = andy.luan.com.LNSimplePhotoBrowser;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B307BB121D44B3DF00B82DD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 61996B2901890885705AFF0A /* Pods-LNSimplePhotoBrowser.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LNSimplePhotoBrowser/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = andy.luan.com.LNSimplePhotoBrowser;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B307BAF91D44B3DF00B82DD3 /* Build configuration list for PBXProject "LNSimplePhotoBrowser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B307BB0E1D44B3DF00B82DD3 /* Debug */,
+				B307BB0F1D44B3DF00B82DD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B307BB101D44B3DF00B82DD3 /* Build configuration list for PBXNativeTarget "LNSimplePhotoBrowser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B307BB111D44B3DF00B82DD3 /* Debug */,
+				B307BB121D44B3DF00B82DD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B307BAF61D44B3DF00B82DD3 /* Project object */;
+}
