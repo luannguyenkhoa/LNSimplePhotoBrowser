@@ -18,17 +18,17 @@ struct LNMediaProcessing {
   
   static let singleton = LNMediaProcessing()
   
-  typealias Rendering = UIImage? -> ()
-  typealias Converting = NSURL? -> UIImage?
-  typealias Checking = String? -> Bool
+  typealias Rendering = (UIImage?) -> ()
+  typealias Converting = (URL?) -> UIImage?
+  typealias Checking = (String?) -> Bool
   
-  private let cache: Cache = Cache<UIImage>(name: "thumnails")
+  fileprivate let cache: Cache = Cache<UIImage>(name: "thumnails")
   
-  func loadImage(item: LNMediaFile, render: Rendering) {
+  func loadImage(_ item: LNMediaFile, render: @escaping Rendering) {
     // Check type of media file and retrieve image
     if let img = item.image {
       // Always rendering image to view on main thread
-      dispatch_async(dispatch_get_main_queue(), { 
+      DispatchQueue.main.async(execute: { 
         render(img)
       })
       return
@@ -46,10 +46,10 @@ struct LNMediaProcessing {
     }
   }
   
-  private func retrieveImage(g: Rendering) -> String -> ()? {
+  fileprivate func retrieveImage(_ g: @escaping Rendering) -> (String) -> ()? {
     return { url in
       self.retrieveImageFromURL(url, f: { urlStr in
-        guard let urlStr = urlStr, let url = NSURL(string: urlStr) else { return nil }
+        guard let urlStr = urlStr, let url = URL(string: urlStr) else { return nil }
         // Load image from url link
         let fetcher: NetworkFetcher = NetworkFetcher<UIImage>(URL: url)
         // Fetching image from url with caching data
@@ -61,11 +61,11 @@ struct LNMediaProcessing {
     }
   }
   
-  private func videoThumbnailFromFile(urlStr: String?, render: Rendering, isLocal: Checking) {
+  fileprivate func videoThumbnailFromFile(_ urlStr: String?, render: @escaping Rendering, isLocal: @escaping Checking) {
     guard let urlStr = urlStr else { return }
     // Loading image from caching data as the first
     cache.fetch(key: urlStr).onSuccess { img in
-      dispatch_async(dispatch_get_main_queue(), {
+      DispatchQueue.main.async(execute: {
         render(img)
       })
     }.onFailure { err in
@@ -73,16 +73,16 @@ struct LNMediaProcessing {
     }
   }
   
-  private func fetchImageFromVideoURL(urlStr: String, render: Rendering, isLocal: Checking) {
+  fileprivate func fetchImageFromVideoURL(_ urlStr: String, render: @escaping Rendering, isLocal: @escaping Checking) {
     // Perform retrieving image in background thread
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+    DispatchQueue.global().async {
       var avasset: AVAsset?
       if isLocal(urlStr) {
         // Using avasset for thumbnail image generation
-        avasset = AVAsset(URL: NSURL(fileURLWithPath: urlStr))
+        avasset = AVAsset(url: URL(fileURLWithPath: urlStr))
       } else {
-        if let url = NSURL(string: urlStr) {
-          avasset = AVPlayer(URL: url).currentItem?.asset
+        if let url = URL(string: urlStr) {
+          avasset = AVPlayer(url: url).currentItem?.asset
         }
       }
       guard let asset = avasset else { return }
@@ -96,7 +96,7 @@ struct LNMediaProcessing {
    - parameter urlStr: url string
    - parameter render: rendering image closure
    */
-  private func imageFromAsset(asset: AVAsset, urlStr: String, render: Rendering) {
+  fileprivate func imageFromAsset(_ asset: AVAsset, urlStr: String, render: @escaping Rendering) {
     let imgGenerator = AVAssetImageGenerator(asset: asset)
     imgGenerator.maximumSize = CGSize(width: 750, height: 1334)
     
@@ -105,12 +105,12 @@ struct LNMediaProcessing {
     let time = CMTime(seconds: 3, preferredTimescale: 1)
     
     do {
-      let imgRef = try imgGenerator.copyCGImageAtTime(time, actualTime: nil)
+      let imgRef = try imgGenerator.copyCGImage(at: time, actualTime: nil)
       // Caching image
-      let img = UIImage(CGImage: imgRef)
+      let img = UIImage(cgImage: imgRef)
       self.cache.set(value: img, key: urlStr)
       // Move up to main thread for data rendering
-      dispatch_async(dispatch_get_main_queue(), {
+      DispatchQueue.main.async(execute: {
         render(img)
       })
     } catch let err {
@@ -125,21 +125,21 @@ struct LNMediaProcessing {
    
    - parameter render: rendering image to view closure
    */
-  private func renderImageAsset(render: Rendering) -> String -> () {
+  fileprivate func renderImageAsset(_ render: @escaping Rendering) -> (String) -> () {
     return { imgName in
-      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+      DispatchQueue.global().async {
         // Retrieving image from asset on background thread
         let img = UIImage(named: imgName)
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async {
           // Rendering image to view on main thread
           render(img)
-        })
-      })
+        }
+      }
     }
   }
   
   // A functional for retrieving image and redering data
-  private func retrieveImageFromURL<T, V>(url: T?, f: T? -> V?) -> V? {
+  fileprivate func retrieveImageFromURL<T, V>(_ url: T?, f: (T?) -> V?) -> V? {
     return f(url)
   }
   

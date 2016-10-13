@@ -11,7 +11,7 @@ import UIKit
 // Delegate handlers
 protocol LNMediaCellDelegate: class {
   
-  func playVideoOfCell(cell: LNMediaCollectionViewCell)
+  func playVideoOfCell(_ cell: LNMediaCollectionViewCell)
   
 }
 
@@ -27,20 +27,20 @@ enum Actions {
 internal final class LNMediaCollectionViewCell: UICollectionViewCell {
   
   // MARK: Outlets
-  @IBOutlet private weak var mainScrollView: UIScrollView!
+  @IBOutlet fileprivate weak var mainScrollView: UIScrollView!
   @IBOutlet weak var contentImageView: UIImageView!
-  @IBOutlet private weak var playVideoButton: UIButton!
+  @IBOutlet fileprivate weak var playVideoButton: UIButton!
   
   // MARK: Properties
   weak var delegate: LNMediaCellDelegate?
   var cellItem: LNMediaFile?
   var isPhoto: Bool = false
-  private var doubleTap: UITapGestureRecognizer?
-  private var pinchGesture: UIPinchGestureRecognizer?
+  fileprivate var doubleTap: UITapGestureRecognizer?
+  fileprivate var pinchGesture: UIPinchGestureRecognizer?
   
   // MARK: Constants
-  private let MAXIMUM_SCALE: CGFloat = 4.0
-  private let MINIMUM_SCALE: CGFloat = 1
+  fileprivate let MAXIMUM_SCALE: CGFloat = 4.0
+  fileprivate let MINIMUM_SCALE: CGFloat = 1
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -55,13 +55,13 @@ internal final class LNMediaCollectionViewCell: UICollectionViewCell {
     pinchGesture = UIPinchGestureRecognizer(target: self, action: Actions.pinchHandler)
     
     // Add button action target
-    playVideoButton.addTarget(self, action: Actions.buttonTapped, forControlEvents: .TouchUpInside)
+    playVideoButton.addTarget(self, action: Actions.buttonTapped, for: .touchUpInside)
   }
   
   override func prepareForReuse() {
     self.contentImageView.center = self.mainScrollView.center
     // Remove all gesture recognizers if exists
-    if let gestures = self.gestureRecognizers where gestures.count > 0 {
+    if let gestures = self.gestureRecognizers , gestures.count > 0 {
       gestures.forEach({ removeGestureRecognizer($0) })
     }
     mainScrollView.delegate = nil
@@ -78,12 +78,12 @@ internal final class LNMediaCollectionViewCell: UICollectionViewCell {
    
    - parameter item: media file object that includes image or video
    */
-  func renderContentToViews(item: LNMediaFile) {
+  func renderContentToViews(_ item: LNMediaFile) {
     // Save cell's item
     cellItem = item
     // Hide play button if there is a photo item
     isPhoto = item.videoURL == nil
-    playVideoButton.hidden = isPhoto
+    playVideoButton.isHidden = isPhoto
     
     if isPhoto {
       // Render photo data
@@ -101,7 +101,7 @@ internal final class LNMediaCollectionViewCell: UICollectionViewCell {
    */
   func resetZoomIfNeeded() {
     // Reset transform and zoom scale to default if needed
-    contentImageView.transform = CGAffineTransformIdentity
+    contentImageView.transform = CGAffineTransform.identity
     mainScrollView.setZoomScale(1, animated: true)
   }
   /**
@@ -118,22 +118,22 @@ internal final class LNMediaCollectionViewCell: UICollectionViewCell {
    
    - parameter gesture: sender tap gesture
    */
-  func doubleTapHandler(gesture: UITapGestureRecognizer) {
+  func doubleTapHandler(_ gesture: UITapGestureRecognizer) {
     var newScale: CGFloat = 1
     // Assigning new scale value if it's an identify value right now
     if self.mainScrollView.zoomScale == 1 {
       newScale = mainScrollView.zoomScale * MAXIMUM_SCALE
     }
     // Getting center point of gesture owner view
-    var center = gesture.locationInView(gesture.view)
+    var center = gesture.location(in: gesture.view)
     // Getting zoom rect value for determined scale value and center point
     let zoomRect = zoomToRectForScale(newScale, center: &center)
     // Zooming container scrollview to zoom rect value above
-    mainScrollView.zoomToRect(zoomRect, animated: true)
+    mainScrollView.zoom(to: zoomRect, animated: true)
   }
   
-  func pichHandler(gesture: UIPinchGestureRecognizer) {
-    if [.Ended, .Changed].contains(gesture.state) {
+  func pichHandler(_ gesture: UIPinchGestureRecognizer) {
+    if [.ended, .changed].contains(gesture.state) {
       // Getting current scale value of self
       let currentScale: CGFloat = self.frame.size.width / self.bounds.size.width
       // Calculating a new scale value from current scale and gesture scale
@@ -144,7 +144,7 @@ internal final class LNMediaCollectionViewCell: UICollectionViewCell {
       newScale = newScale > MAXIMUM_SCALE ? MAXIMUM_SCALE : newScale
       
       // Initializing a transform object and transform self with this
-      let transform = CGAffineTransformMakeScale(newScale, newScale)
+      let transform = CGAffineTransform(scaleX: newScale, y: newScale)
       self.transform = transform
       // Reset gesture scale value
       gesture.scale = 1
@@ -158,15 +158,15 @@ internal final class LNMediaCollectionViewCell: UICollectionViewCell {
    
    - returns: rect that will be destination rect of content image view
    */
-  private func zoomToRectForScale(scale: CGFloat,inout center: CGPoint) -> CGRect {
+  fileprivate func zoomToRectForScale(_ scale: CGFloat,center: inout CGPoint) -> CGRect {
     // Initialize zoom rect object with zero
-    var zoomRect: CGRect = CGRectZero
+    var zoomRect: CGRect = CGRect.zero
     // Getting zoomRect size from division between imgView's size and scale param
-    zoomRect.size.height = CGRectGetHeight(contentImageView.frame) / scale
-    zoomRect.size.width = CGRectGetWidth(contentImageView.frame) / scale
+    zoomRect.size.height = contentImageView.frame.height / scale
+    zoomRect.size.width = contentImageView.frame.width / scale
     
     // Converting center point of gesture view
-    center = contentImageView.convertPoint(center, fromView: self)
+    center = contentImageView.convert(center, from: self)
     
     // Getting zoomRect origin
     zoomRect.origin.x = center.x - (zoomRect.size.width / 2.0)
@@ -178,7 +178,7 @@ internal final class LNMediaCollectionViewCell: UICollectionViewCell {
 
 extension LNMediaCollectionViewCell: UIScrollViewDelegate {
   // Determining view for zooming
-  func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+  func viewForZooming(in scrollView: UIScrollView) -> UIView? {
     return isPhoto ? contentImageView : nil
   }
   

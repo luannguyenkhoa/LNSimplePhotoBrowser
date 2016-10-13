@@ -15,12 +15,12 @@ class ViewController: UIViewController {
   
   var items: [LNMediaFile]?
   // Lazy initialize properties
-  private lazy var browserContainerView: LNPhotoBrowsering? = {
+  fileprivate lazy var browserContainerView: LNPhotoBrowsering? = {
     let browserContainerView = LNPhotoBrowser()
     browserContainerView.datasource = self
     browserContainerView.delegate = self
     browserContainerView.translatesAutoresizingMaskIntoConstraints = false
-    browserContainerView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+    browserContainerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     
     // Add subview and constraints
     self.view.addSubview(browserContainerView)
@@ -28,11 +28,11 @@ class ViewController: UIViewController {
     
     return browserContainerView
   }()
-  private lazy var dispatch_queue: dispatch_queue_t = dispatch_queue_create("mapping", DISPATCH_QUEUE_CONCURRENT)
-  private lazy var dispatch_request_group = dispatch_group_create()
+  fileprivate lazy var dispatch_queue: DispatchQueue = DispatchQueue(label: "mapping", attributes: DispatchQueue.Attributes.concurrent)
+  fileprivate lazy var dispatch_request_group = DispatchGroup()
   
-  private var defaultSession: NSURLSession?
-  private var processingRotation: Bool = true
+  fileprivate var defaultSession: URLSession?
+  fileprivate var processingRotation: Bool = true
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -45,39 +45,39 @@ class ViewController: UIViewController {
     
     // Get list images url
     generateImages { res in
-      images.appendContentsOf(res)
+      images.append(contentsOf: res)
     }
     // Get list videos url from youtube
     requestListVideosFromYoutube { res in
-      videos.appendContentsOf(res)
+      videos.append(contentsOf: res)
       videos += ["http://www36.online-convert.com/download-file/3c9e6da27b5e9f98a981054b4c61639b/converted-56ff85d7.mp4",
                  "http://www11.online-convert.com/download-file/cf8bdad18a7e59860ce3bc5d00c11877/converted-1a5041d2.mp4",
                  "http://www30.online-convert.com/download-file/68d7d7b9ab9dd5afecb876aec0211b27/converted-daed38ac.mp4"]
                   .map({ LNFile(videoURL: $0) })
       videos += ["http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8",
                  "http://vevoplaylist-live.hls.adaptive.level3.net/vevo/ch1/appleman.m3u8"]
-                .map({ LNFile(videoURL: $0, imageURL: nil, videoType: .Stream) })
-      if let docs = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first {
+                .map({ LNFile(videoURL: $0, imageURL: nil, videoType: .stream) })
+      if let docs = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
         videos += ["/intro01.mp4","/intro02.mp4"].flatMap({docs + $0}).map({ LNFile(videoURL: $0) })
       }
     }
     
     // Waiting for all requests are completed, then intialize items list property by zipping 2 images and videos arrays
     // the items list will be suffled after zipping and mapping two arrays to one.
-    dispatch_group_notify(dispatch_request_group, dispatch_queue) { [weak self] in
+    dispatch_request_group.notify(queue: dispatch_queue) { [weak self] in
       // Hide network activity indicator on status bar
-      UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+      UIApplication.shared.isNetworkActivityIndicatorVisible = false
       // Zipping
       self?.items = zip(images, videos).flatMap({ [$0.0, $0.1] }).shuffle()
       // Refresh collectionview on main thread
-      dispatch_async(dispatch_get_main_queue(), {
+      DispatchQueue.main.async(execute: {
         self?.browserContainerView?.refresh()
       })
     }
     self.title = "Photos & Videos"
   }
   
-  override func viewWillDisappear(animated: Bool) {
+  override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     processingRotation = false
   }
@@ -87,7 +87,7 @@ class ViewController: UIViewController {
     if !processingRotation {
       processingRotation = true
       browserContainerView?.willRotation()
-      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.175 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { [weak self] in
+      DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.175 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) { [weak self] in
         self?.browserContainerView?.didRotation()
       }
     }
@@ -104,32 +104,31 @@ class ViewController: UIViewController {
    
    - parameter completion: handle closure as a param
    */
-  private func requestListVideosFromYoutube(completion: ([LNMediaFile]) -> ()) {
+  fileprivate func requestListVideosFromYoutube(_ completion: @escaping ([LNMediaFile]) -> ()) {
     let yourGoogleApiKey = "AIzaSyDBzUttT6ocPpE-jURkFEr-wEW_vzsDbpM"
     let urlStr = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=LLGWpjrgMylyGVRIKQdazrPA&key=\(yourGoogleApiKey)"
-    guard let url = NSURL(string: urlStr) else { return }
+    guard let url = URL(string: urlStr) else { return }
     
-    let mulRequest = NSMutableURLRequest(URL: url)
-    mulRequest.HTTPMethod = "GET"
+    var request = URLRequest(url: url)
+    request.httpMethod = "GET"
     
-    dispatch_group_enter(dispatch_request_group)
-    let dataTask = defaultSession?.dataTaskWithRequest(mulRequest) { [weak self] data,res,err in
+    dispatch_request_group.enter()
+    let dataTask = defaultSession?.dataTask(with: request) { [weak self] data,res,err in
       
       // Parsing response data
       let ids = self?.parsingResponseData(data)
-      dispatch_async(dispatch_get_main_queue(), {
+      DispatchQueue.main.async(execute: {
         if let ids = ids {
           // Send back the results list
           completion(ids)
         }
         if let wSelf = self {
-          dispatch_group_leave(wSelf.dispatch_request_group)
+          wSelf.dispatch_request_group.leave()
         }
         
       })
     }
     dataTask?.resume()
-    print(dataTask?.originalRequest)
   }
   
   /**
@@ -137,29 +136,29 @@ class ViewController: UIViewController {
    
    - parameter completion: handle closure as a param
    */
-  private func generateImages(completion: [LNMediaFile] -> ()) {
+  fileprivate func generateImages(_ completion: @escaping ([LNMediaFile]) -> ()) {
     
-    defaultSession = NSURLSession(configuration: .defaultSessionConfiguration(), delegate: nil, delegateQueue: NSOperationQueue.mainQueue())
+    defaultSession = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
     // Show network activity indicator on status bar
-    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    UIApplication.shared.isNetworkActivityIndicatorVisible = true
     
-    if let url = NSURL(string: "https://api.imgflip.com/get_memes") {
-      let requet = NSMutableURLRequest(URL: url)
-      requet.HTTPMethod = "GET"
+    if let url = URL(string: "https://api.imgflip.com/get_memes") {
+      var request = URLRequest(url: url)
+      request.httpMethod = "GET"
       
-      dispatch_group_enter(dispatch_request_group)
-      let dataTask = defaultSession?.dataTaskWithRequest(requet) { [weak self] data, res, err in
+      dispatch_request_group.enter()
+      let dataTask = defaultSession?.dataTask(with: request, completionHandler: { [weak self] data, res, err in
         let imgs = self?.parsingImageJSON(data)
-        dispatch_async(dispatch_get_main_queue(), { 
+        DispatchQueue.main.async(execute: { 
           if let imgs = imgs {
             completion(imgs)
           }
           // Leave group
           if let wSelf = self {
-            dispatch_group_leave(wSelf.dispatch_request_group)
+            wSelf.dispatch_request_group.leave()
           }
         })
-      }
+      }) 
       dataTask?.resume()
       print(dataTask?.originalRequest)
     }
@@ -172,16 +171,16 @@ class ViewController: UIViewController {
    
    - returns: list of videos url and thumbnails url
    */
-  private func parsingResponseData(data: NSData?) -> [LNMediaFile] {
-    let parsing: [String: AnyObject] -> [LNMediaFile] = { jsonSerialize in
+  fileprivate func parsingResponseData(_ data: Data?) -> [LNMediaFile] {
+    let parsing: ([String: AnyObject]) -> [LNMediaFile] = { jsonSerialize in
       // Parsing json
-      if let items = jsonSerialize["items"] as? Array<[String: AnyObject]> where items.count > 0 {
+      if let items = jsonSerialize["items"] as? Array<[String: AnyObject]> , items.count > 0 {
         return items[0..<(items.count > kHalfMaxItemsNumber ? kHalfMaxItemsNumber : items.count)].flatMap({ res in
           let snippet = res["snippet"] as? [String: AnyObject]
           let resourceId = snippet?["resourceId"] as? [String: AnyObject]
           let mediumThumb = snippet?["thumbnails"]?["medium"] as? [String: AnyObject]
           if let vidId = resourceId?["videoId"] as? String {
-            return LNFile(videoURL: kYoutubePrefixVideoURL + vidId, imageURL: mediumThumb?["url"] as? String, videoType: .Youtube)
+            return LNFile(videoURL: kYoutubePrefixVideoURL + vidId, imageURL: mediumThumb?["url"] as? String, videoType: .youtube)
           }
           return nil
         })
@@ -198,9 +197,9 @@ class ViewController: UIViewController {
    
    - returns: list of images url
    */
-  private func parsingImageJSON(data: NSData?) -> [LNMediaFile] {
-    let parsing: [String: AnyObject] -> [LNMediaFile] = { jsonSerialize in
-      if let items = jsonSerialize["data"]?["memes"] as? Array<[String: AnyObject]> where items.count > 0 {
+  fileprivate func parsingImageJSON(_ data: Data?) -> [LNMediaFile] {
+    let parsing: ([String: AnyObject]) -> [LNMediaFile] = { jsonSerialize in
+      if let items = jsonSerialize["data"]?["memes"] as? Array<[String: AnyObject]> , items.count > 0 {
         // Mapping as well as getting rid of nil objects from list of Dictionaries to list of strings
         return items[0..<(items.count > kMaxItemsNumber ? kMaxItemsNumber : items.count)].flatMap({$0["url"] as? String}).map({ LNFile(imageURL: $0) })
       }
@@ -216,11 +215,11 @@ class ViewController: UIViewController {
    
    - returns: functional object
    */
-  private func parsingJSONFromData(f: [String: AnyObject] -> [LNMediaFile]) -> NSData? -> [LNMediaFile] {
+  fileprivate func parsingJSONFromData(_ f: @escaping ([String: AnyObject]) -> [LNMediaFile]) -> (Data?) -> [LNMediaFile] {
     return { data in
       guard let data = data else { return [] }
       do {
-        if let jsonSerialize = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as? [String: AnyObject] {
+        if let jsonSerialize = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: AnyObject] {
           return f(jsonSerialize)
         }
       } catch let err { print(err) }
@@ -232,20 +231,20 @@ class ViewController: UIViewController {
    
    - parameter view: subview
    */
-  private func createConstraints(view: UIView) {
+  fileprivate func createConstraints(_ view: UIView) {
     let views: [String: AnyObject] = ["browserContainerView": view, "topLayoutGuide": topLayoutGuide]
-    let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[browserContainerView]|", options: [], metrics: nil, views: views)
+    let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[browserContainerView]|", options: [], metrics: nil, views: views)
     self.view.addConstraints(horizontalConstraints)
     
-    let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[topLayoutGuide]-[browserContainerView]|", options: [], metrics: nil, views: views)
+    let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[topLayoutGuide]-[browserContainerView]|", options: [], metrics: nil, views: views)
     self.view.addConstraints(verticalConstraints)
   }
   
-  override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+  override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
     processingRotation = true
     browserContainerView?.willRotation()
   }
-  override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+  override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
     browserContainerView?.didRotation()
     processingRotation = false
   }
@@ -258,17 +257,17 @@ extension ViewController: LNPhotoBrowserDatasource {
     return items.count
   }
   
-  func itemAtIndex(index: Int) -> LNMediaFile {
+  func itemAtIndex(_ index: Int) -> LNMediaFile {
     return items![index]
   }
 }
 
 extension ViewController: LNPhotoBrowserDelegate {
-  func willDisplayItem(item: LNMediaFile) {
+  func willDisplayItem(_ item: LNMediaFile) {
     
   }
   
-  func didSelectAtIndex(index: Int) {
+  func didSelectAtIndex(_ index: Int) {
     
   }
 }

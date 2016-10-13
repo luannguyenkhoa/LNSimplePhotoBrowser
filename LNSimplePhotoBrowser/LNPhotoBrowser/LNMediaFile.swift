@@ -16,7 +16,7 @@ protocol LNMediaFile {
   var image: UIImage? {get set}
   var isVideo: Bool {get}
   var videoType: LNOnlVideoType {get set}
-  var isLocalFile: String? -> Bool {get}
+  var isLocalFile: (String?) -> Bool {get}
 }
 
 struct LNFile: LNMediaFile {
@@ -29,10 +29,10 @@ struct LNFile: LNMediaFile {
       return videoURL != nil
     }
   }
-  var videoType: LNOnlVideoType = .Other
-  let isLocalFile: String? -> Bool = { url in
+  var videoType: LNOnlVideoType = .other
+  let isLocalFile: (String?) -> Bool = { url in
     guard let path = url else { return false }
-    return NSFileManager.defaultManager().fileExistsAtPath(path)
+    return FileManager.default.fileExists(atPath: path)
   }
   
   init() {}

@@ -3,11 +3,25 @@ PODS:
   - youtube-ios-player-helper (0.1.6)
 
 DEPENDENCIES:
-  - HanekeSwift
+  - HanekeSwift (from `https://github.com/Haneke/HanekeSwift.git`, branch `feature/swift-3`)
   - youtube-ios-player-helper (~> 0.1.4)
 
+EXTERNAL SOURCES:
+  HanekeSwift:
+    :branch: feature/swift-3
+    :git: https://github.com/Haneke/HanekeSwift.git
+    :submodules: true
+
+CHECKOUT OPTIONS:
+  HanekeSwift:
+    :commit: 6e48f795c5928101043a5e11e1377877e042012d
+    :git: https://github.com/Haneke/HanekeSwift.git
+    :submodules: true
+
 SPEC CHECKSUMS:
-  HanekeSwift: 08e47d3d0f2899ec58e5d257beba0de619aca9e8
+  HanekeSwift: 4113367892828e7700d24a384027de6ebc79aad1
   youtube-ios-player-helper: 21ab92db027c7ff86cb17a3843a3f6eafc8158d2
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 5de6c4fb55da28e820cb64815261985a25a10b46
+
+COCOAPODS: 1.1.0.rc.2

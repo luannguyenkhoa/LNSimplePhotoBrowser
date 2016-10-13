@@ -16,7 +16,7 @@ class LNYoutubePlayerViewController: UIViewController {
   @IBOutlet weak var ytbPlayerView: YTPlayerView!
   
   override func loadView() {
-    NSBundle.mainBundle().loadNibNamed("LNYoutubePlayerViewController", owner: self, options: nil)
+    Bundle.main.loadNibNamed("LNYoutubePlayerViewController", owner: self, options: nil)
   }
   
   override func viewDidLoad() {
@@ -32,10 +32,10 @@ class LNYoutubePlayerViewController: UIViewController {
   
   @IBAction func didTouchCloseButton() {
     ytbPlayerView.stopVideo()
-    dismissViewControllerAnimated(true, completion: nil)
+    dismiss(animated: true, completion: nil)
   }
   
-  func playVideoWithVideoId(vidId: String) {
-    ytbPlayerView.loadWithVideoId(vidId)
+  func playVideoWithVideoId(_ vidId: String) {
+    ytbPlayerView.load(withVideoId: vidId)
   }
 }
