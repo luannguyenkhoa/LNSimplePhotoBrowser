@@ -2,6 +2,8 @@
 A demo project about photo browser slideshow for iOS that written in Swift.
 This was a project, not a library.
 
+. Check out branch swift3 for supporting swift 3.
+
 ## It's
 
 A photo browser slideshow that displays all photos and videos on collectionview with horizontal scrolling. User swipes left/right to view next/previous item as well as interacting on it: double tap to zoom an image or pich gesture to zoom in/out image, play video from local or remote (including youtube, any links with video type extension) and streaming video.
